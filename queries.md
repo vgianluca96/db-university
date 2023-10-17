@@ -23,10 +23,15 @@ WHERE `period` = 'I semestre'
 AND `year` = 1;
 
 ## Query n. 5
-
+SELECT *
+FROM `exams`
+WHERE `date` = '2020-06-20'
+AND HOUR(`hour`) > 13;
 
 ## Query n. 6
-
+SELECT *
+FROM `degrees`
+WHERE `level` = 'magistrale';
 
 ## Query n. 7
 
