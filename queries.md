@@ -12,10 +12,15 @@ FROM `courses`
 WHERE `cfu` > 10;
 
 ## Query n. 3
-
+SELECT *
+FROM `students`
+WHERE 2023 - YEAR(`date_of_birth`) > 30;
 
 ## Query n. 4
-
+SELECT *
+FROM `courses`
+WHERE `period` = 'I semestre'
+AND `year` = 1;
 
 ## Query n. 5
 
