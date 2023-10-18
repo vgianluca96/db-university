@@ -118,6 +118,18 @@ ORDER BY `degrees`.`name` ASC;
 
 ```sql
 
+SELECT DISTINCT `teachers`.*, `departments`.`name` AS `department_name`
+FROM `teachers`
+JOIN `course_teacher`
+ON `teachers`.`id` = `course_teacher`.`teacher_id`
+JOIN `courses`
+ON `courses`.`id` = `course_teacher`.`course_id`
+JOIN `degrees`
+ON `degrees`.`id` = `courses`.`degree_id`
+JOIN `departments`
+ON `departments`.`id` = `degrees`.`department_id`
+WHERE `departments`.`name` = 'Dipartimento di Matematica'
+ORDER BY `teachers`.`surname` ASC, `teachers`.`name` ASC;
 
 ```
 
