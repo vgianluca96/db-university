@@ -50,7 +50,7 @@ GROUP BY `department_id`;
 
 ```sql
 
-SELECT `students`.*, `degrees`.`name`
+SELECT `students`.*, `degrees`.`name` AS `degree_name`
 FROM `students`
 JOIN `degrees`
 ON `students`.`degree_id` = `degrees`.`id`
@@ -62,7 +62,7 @@ WHERE `degrees`.`name` = 'Corso di Laurea in Economia';
 
 ```sql
 
-SELECT `degrees`.*, `departments`.`name`
+SELECT `degrees`.*, `departments`.`name` AS `department_name`
 FROM `degrees`
 JOIN `departments`
 ON `degrees`.`department_id` = `departments`.`id`
@@ -74,7 +74,7 @@ WHERE `departments`.`name` = 'Dipartimento di Neuroscienze';
 
 ```sql
 
-SELECT `courses`.*, `teachers`.`name`, `teachers`.`surname`
+SELECT `courses`.*, `teachers`.`name` AS `teacher_name`, `teachers`.`surname` AS `teacher_surname`
 FROM `teachers`
 JOIN `course_teacher`
 ON `teachers`.`id` = `course_teacher`.`teacher_id`
@@ -88,6 +88,13 @@ WHERE `teachers`.`id` = 44;
 
 ```sql
 
+SELECT `students`.*, `degrees`.`name` AS `degree_name`, `departments`.`name` AS `department_name`
+FROM `students`
+JOIN `degrees`
+ON `students`.`degree_id` = `degrees`.`id`
+JOIN `departments`
+ON `degrees`.`department_id` = `departments`.`id`
+ORDER BY `students`.`surname` ASC,`students`.`name` ASC;
 
 ```
 
@@ -95,6 +102,15 @@ WHERE `teachers`.`id` = 44;
 
 ```sql
 
+SELECT `degrees`.*, `courses`.`name` AS `course_name`, `teachers`.`name` AS `teacher_name`, `teachers`.`surname` AS `teacher_surname`
+FROM `courses`
+JOIN `degrees`
+ON `degrees`.`id` = `courses`.`degree_id`
+JOIN `course_teacher`
+ON `courses`.`id` = `course_teacher`.`course_id`
+JOIN `teachers`
+ON `teachers`.`id` = `course_teacher`.`teacher_id`
+ORDER BY `degrees`.`name` ASC;
 
 ```
 
