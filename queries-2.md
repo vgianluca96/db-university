@@ -136,7 +136,25 @@ ORDER BY `teachers`.`surname` ASC, `teachers`.`name` ASC;
 ## BONUS
 ### Selezionare per ogni studente il numero di tentativi sostenuti per ogni esame, stampando anche il voto massimo. Successivamente, filtrare i tentativi con voto minimo 18.
 
+**Prima eseguo il seguente comando per disattivare opzione ONLY_FULL_GROUP_BY**
 ```sql
 
+SET GLOBAL sql_mode=(SELECT REPLACE(@@sql_mode,'ONLY_FULL_GROUP_BY',''));
+
+```
+
+**Poi eseguo la query**
+```sql
+
+SELECT `students`.`name` as `student_name`, `students`.`surname` as `student_surname`, `courses`.`name` AS `course_name`, COUNT(`exams`.`course_id`) AS `tentatives`, MAX(`exam_student`.`vote`) AS `max_vote`
+FROM `exam_student`
+JOIN `students`
+ON `students`.`id` = `exam_student`.`student_id`
+JOIN `exams`
+ON `exams`.`id` = `exam_student`.`exam_id`
+JOIN `courses`
+ON `exams`.`course_id` = `courses`.`id`
+GROUP BY `exams`.`course_id`, `students`.`name`
+ORDER BY `students`.`surname` ASC, `students`.`name` ASC;
 
 ```
