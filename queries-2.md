@@ -146,7 +146,7 @@ SET GLOBAL sql_mode=(SELECT REPLACE(@@sql_mode,'ONLY_FULL_GROUP_BY',''));
 **Poi eseguo la query**
 ```sql
 
-SELECT `students`.`name` as `student_name`, `students`.`surname` as `student_surname`, `courses`.`id` AS `course_id`, `courses`.`name` AS `course_name`, COUNT(`exams`.`course_id`) AS `tentatives`, MAX(`exam_student`.`vote`) AS `max_vote`
+SELECT `students`.`id` AS `student_id`, `students`.`name` AS `student_name`, `students`.`surname` as `student_surname`, `courses`.`id` AS `course_id`, `courses`.`name` AS `course_name`, COUNT(`exams`.`course_id`) AS `tentatives`, MAX(`exam_student`.`vote`) AS `max_vote`
 FROM `exam_student`
 JOIN `students`
 ON `students`.`id` = `exam_student`.`student_id`
@@ -155,7 +155,7 @@ ON `exams`.`id` = `exam_student`.`exam_id`
 JOIN `courses`
 ON `exams`.`course_id` = `courses`.`id`
 WHERE `exam_student`.`vote` >= 18
-GROUP BY `exams`.`course_id`, `students`.`name`
+GROUP BY `students`.`name`, `exams`.`course_id`
 ORDER BY `students`.`surname` ASC, `students`.`name` ASC;
 
 ```
