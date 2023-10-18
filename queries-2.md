@@ -62,6 +62,11 @@ WHERE `degrees`.`name` = 'Corso di Laurea in Economia';
 
 ```sql
 
+SELECT `degrees`.*, `departments`.`name`
+FROM `degrees`
+JOIN `departments`
+ON `degrees`.`department_id` = `departments`.`id`
+WHERE `departments`.`name` = 'Dipartimento di Neuroscienze';
 
 ```
 
@@ -69,6 +74,13 @@ WHERE `degrees`.`name` = 'Corso di Laurea in Economia';
 
 ```sql
 
+SELECT `courses`.*, `teachers`.`name`, `teachers`.`surname`
+FROM `teachers`
+JOIN `course_teacher`
+ON `teachers`.`id` = `course_teacher`.`teacher_id`
+JOIN `courses`
+ON `courses`.`id` = `course_teacher`.`course_id`
+WHERE `teachers`.`id` = 44;
 
 ```
 
