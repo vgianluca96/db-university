@@ -7,7 +7,9 @@
 
 ```sql
 
-
+SELECT COUNT(*) AS number_of_enrolled, YEAR(`enrolment_date`) AS enrolment_year
+FROM `students`
+GROUP BY YEAR(`enrolment_date`);
 
 ```
 
@@ -15,7 +17,9 @@
 
 ```sql
 
-
+SELECT COUNT(*) AS number_of_teachers, `office_address`
+FROM `teachers`
+GROUP BY `office_address`;
 
 ```
 
@@ -23,7 +27,9 @@
 
 ```sql
 
-
+SELECT`exam_id`, AVG(`vote`) AS average_vote
+FROM `exam_student`
+GROUP BY `exam_id`;
 
 ```
 
@@ -31,7 +37,9 @@
 
 ```sql
 
-
+SELECT`department_id`, COUNT(*) AS number_of_degrees
+FROM `degrees`
+GROUP BY `department_id`;
 
 ```
 
