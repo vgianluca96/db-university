@@ -136,14 +136,7 @@ ORDER BY `teachers`.`surname` ASC, `teachers`.`name` ASC;
 ## BONUS
 ### Selezionare per ogni studente il numero di tentativi sostenuti per ogni esame, stampando anche il voto massimo. Successivamente, filtrare i tentativi con voto minimo 18.
 
-**Prima eseguo il seguente comando per disattivare opzione ONLY_FULL_GROUP_BY**
-```sql
-
-SET GLOBAL sql_mode=(SELECT REPLACE(@@sql_mode,'ONLY_FULL_GROUP_BY',''));
-
-```
-
-**Poi eseguo la query**
+### Versione mia corretta
 ```sql
 
 SELECT `students`.`id` AS `student_id`, `students`.`name` AS `student_name`, `students`.`surname` as `student_surname`, `courses`.`id` AS `course_id`, `courses`.`name` AS `course_name`, COUNT(`exams`.`course_id`) AS `tentatives`, MAX(`exam_student`.`vote`) AS `max_vote`
@@ -155,7 +148,24 @@ ON `exams`.`id` = `exam_student`.`exam_id`
 JOIN `courses`
 ON `exams`.`course_id` = `courses`.`id`
 WHERE `exam_student`.`vote` >= 18
-GROUP BY `students`.`name`, `exams`.`course_id`
+GROUP BY `students`.`id`, `exams`.`course_id`
+ORDER BY `students`.`surname` ASC, `students`.`name` ASC;
+
+```
+
+### Versione esposta in classe
+```sql
+
+SELECT `students`.`id` AS `student_id`, `students`.`name` AS `student_name`, `students`.`surname` as `student_surname`, `courses`.`id` AS `course_id`, `courses`.`name` AS `course_name`, COUNT(`exams`.`course_id`) AS `tentatives`, MAX(`exam_student`.`vote`) AS `max_vote`
+FROM `exam_student`
+JOIN `students`
+ON `students`.`id` = `exam_student`.`student_id`
+JOIN `exams`
+ON `exams`.`id` = `exam_student`.`exam_id`
+JOIN `courses`
+ON `exams`.`course_id` = `courses`.`id`
+GROUP BY `students`.`id`, `exams`.`course_id`
+HAVING `max_vote` >= 18
 ORDER BY `students`.`surname` ASC, `students`.`name` ASC;
 
 ```
